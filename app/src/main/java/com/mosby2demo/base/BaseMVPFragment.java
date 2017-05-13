@@ -102,37 +102,43 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
 
     @Override
     public void showContent() {
-        setVisibility(getContentView(), View.VISIBLE);
-        setVisibility(getLoadingView(), View.GONE);
-        setVisibility(getErrorView(), View.GONE);
-        setVisibility(getEmptyView(), View.GONE);
+        if (getContentView() != null) {
+            setVisibility(getContentView(), View.VISIBLE);
+            setVisibility(getLoadingView(), View.GONE);
+            setVisibility(getErrorView(), View.GONE);
+            setVisibility(getEmptyView(), View.GONE);
 
-        CommonViewState viewState = (CommonViewState) getViewState();
-        viewState.showContent();
+            CommonViewState viewState = (CommonViewState) getViewState();
+            viewState.showContent();
+        }
     }
 
     @Override
     public void showLoading() {
-        setVisibility(getContentView(), View.GONE);
-        setVisibility(getLoadingView(), View.VISIBLE);
-        setVisibility(getErrorView(), View.GONE);
-        setVisibility(getEmptyView(), View.GONE);
+        if (getLoadingView() != null) {
+            setVisibility(getContentView(), View.GONE);
+            setVisibility(getLoadingView(), View.VISIBLE);
+            setVisibility(getErrorView(), View.GONE);
+            setVisibility(getEmptyView(), View.GONE);
 
-        CommonViewState viewState = (CommonViewState) getViewState();
-        viewState.showLoading();
+            CommonViewState viewState = (CommonViewState) getViewState();
+            viewState.showLoading();
+        }
     }
 
     @Override
     public void showError(@Nullable String msg) {
-        setVisibility(getContentView(), View.GONE);
-        setVisibility(getLoadingView(), View.GONE);
-        setVisibility(getErrorView(), View.VISIBLE);
-        setVisibility(getEmptyView(), View.GONE);
+        if (getErrorView() != null) {
+            setVisibility(getContentView(), View.GONE);
+            setVisibility(getLoadingView(), View.GONE);
+            setVisibility(getErrorView(), View.VISIBLE);
+            setVisibility(getEmptyView(), View.GONE);
 
-        ((TextView) getErrorView()).setText(msg);
+            ((TextView) getErrorView()).setText(msg);
 
-        CommonViewState viewState = (CommonViewState) getViewState();
-        viewState.showError(msg);
+            CommonViewState viewState = (CommonViewState) getViewState();
+            viewState.showError(msg);
+        }
     }
 
     @Override
@@ -142,15 +148,17 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
 
     @Override
     public void showEmpty(@Nullable String msg) {
-        setVisibility(getContentView(), View.GONE);
-        setVisibility(getLoadingView(), View.GONE);
-        setVisibility(getErrorView(), View.GONE);
-        setVisibility(getEmptyView(), View.VISIBLE);
+        if (getEmptyView() != null) {
+            setVisibility(getContentView(), View.GONE);
+            setVisibility(getLoadingView(), View.GONE);
+            setVisibility(getErrorView(), View.GONE);
+            setVisibility(getEmptyView(), View.VISIBLE);
 
-        ((TextView) getEmptyView()).setText(msg);
+            ((TextView) getEmptyView()).setText(msg);
 
-        CommonViewState viewState = (CommonViewState) getViewState();
-        viewState.showEmpty(msg);
+            CommonViewState viewState = (CommonViewState) getViewState();
+            viewState.showEmpty(msg);
+        }
     }
 
     @Override

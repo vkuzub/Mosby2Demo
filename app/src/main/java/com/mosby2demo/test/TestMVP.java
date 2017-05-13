@@ -22,5 +22,9 @@ public interface TestMVP {
 
     interface Presenter extends MvpPresenter<View> {
 
+        void plusState();
+
+        int getState();
+
     }
 }

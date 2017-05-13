@@ -2,10 +2,12 @@ package com.mosby2demo.test;
 
 
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
 
 import com.mosby2demo.R;
 import com.mosby2demo.base.BaseMVPFragment;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -15,6 +17,9 @@ import butterknife.OnClick;
 public class MyTestFragment extends BaseMVPFragment<TestMVP.View, MyTestPresenter> implements TestMVP.View {
 
     public static final String FRAGMENT_TAG = "my_test";
+
+    @BindView(R.id.tvStateCount)
+    TextView tvStateCount;
 
     public MyTestFragment() {
         // Required empty public constructor
@@ -54,24 +59,29 @@ public class MyTestFragment extends BaseMVPFragment<TestMVP.View, MyTestPresente
     @Override
     @OnClick(R.id.error)
     public void showError1() {
+        getPresenter().plusState();
         showError(R.string.oops_something_went_wrong);
     }
 
     @Override
     @OnClick(R.id.content)
     public void showContent1() {
+        getPresenter().plusState();
         showContent();
+        tvStateCount.setText(String.valueOf(getPresenter().getState()));
     }
 
     @Override
     @OnClick(R.id.loading)
     public void showLoading1() {
+        getPresenter().plusState();
         showLoading();
     }
 
     @Override
     @OnClick(R.id.empty)
     public void showEmpty1() {
+        getPresenter().plusState();
         showEmpty(R.string.no_data);
     }
 
@@ -83,5 +93,11 @@ public class MyTestFragment extends BaseMVPFragment<TestMVP.View, MyTestPresente
     @Override
     public void doOnComplete() {
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        tvStateCount.setText(String.valueOf(getPresenter().getState()));
     }
 }

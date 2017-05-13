@@ -8,10 +8,16 @@ import com.mosby2demo.base.mvp.BaseMvpPresenter;
 
 public class MyTestPresenter extends BaseMvpPresenter<TestMVP.View> implements TestMVP.Presenter {
 
+    private int state;
 
 
+    @Override
+    public void plusState() {
+        state++;
+    }
 
-
-
-
+    @Override
+    public int getState() {
+        return state;
+    }
 }
