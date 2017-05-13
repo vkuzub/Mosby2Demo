@@ -10,7 +10,7 @@ import com.mosby2demo.base.RxSupport;
  * Created by Vyacheslav on 25.09.2016.
  */
 
-public interface BaseMvpViewFragment extends MvpView,
+public interface BaseMvpFragmentView extends MvpView,
         HideShowContentSupport, IcepickSupport, RxSupport {
 
     void initViews();

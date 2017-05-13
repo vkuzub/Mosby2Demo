@@ -13,7 +13,7 @@ import com.hannesdorfmann.mosby.mvp.MvpView;
 import com.hannesdorfmann.mosby.mvp.viewstate.MvpViewStateFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.ViewState;
 import com.mosby2demo.R;
-import com.mosby2demo.base.mvp.BaseMvpViewFragment;
+import com.mosby2demo.base.mvp.BaseMvpFragmentView;
 import com.mosby2demo.base.mvp.viewstate.CommonViewState;
 import com.mosby2demo.utils.ToastUtils;
 
@@ -30,7 +30,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Vyacheslav on 29.11.2016.
  */
 
-public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpViewStateFragment<V, P> implements BaseMvpViewFragment {
+public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<V>> extends MvpViewStateFragment<V, P> implements BaseMvpFragmentView {
 
     @Nullable
     @BindView(R.id.loadingView)
@@ -122,7 +122,8 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
         viewState.showLoading();
     }
 
-    protected void showError(@Nullable String msg) {
+    @Override
+    public void showError(@Nullable String msg) {
         setVisibility(getContentView(), View.GONE);
         setVisibility(getLoadingView(), View.GONE);
         setVisibility(getErrorView(), View.VISIBLE);
@@ -134,11 +135,13 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
         viewState.showError(msg);
     }
 
-    protected void showError(@StringRes int res) {
+    @Override
+    public void showError(@StringRes int res) {
         showError(getString(res));
     }
 
-    protected void showEmpty(@Nullable String msg) {
+    @Override
+    public void showEmpty(@Nullable String msg) {
         setVisibility(getContentView(), View.GONE);
         setVisibility(getLoadingView(), View.GONE);
         setVisibility(getErrorView(), View.GONE);
@@ -150,7 +153,8 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
         viewState.showEmpty(msg);
     }
 
-    protected void showEmpty(@StringRes int res) {
+    @Override
+    public void showEmpty(@StringRes int res) {
         showEmpty(getString(res));
     }
 
@@ -185,20 +189,6 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
     }
 
     @Override
-    public void showErrorMessage(String msg, boolean toast) {
-        if (toast) {
-            showMessage(msg);
-        } else {
-            showError(msg);
-        }
-    }
-
-    @Override
-    public void showErrorMessage(@StringRes int msg, boolean toast) {
-        showErrorMessage(getString(msg), toast);
-    }
-
-    @Override
     public void showMessage(String msg) {
         ToastUtils.SHORT.show(msg);
     }
@@ -206,20 +196,6 @@ public abstract class BaseMVPFragment<V extends MvpView, P extends MvpPresenter<
     @Override
     public void showMessage(int msg) {
         ToastUtils.SHORT.show(msg);
-    }
-
-    @Override
-    public void showEmptyMessage(String msg, boolean toast) {
-        if (toast) {
-            showMessage(msg);
-        } else {
-            showError(msg);
-        }
-    }
-
-    @Override
-    public void showEmptyMessage(@StringRes int msg, boolean toast) {
-        showEmptyMessage(getString(msg), toast);
     }
 
     @Optional

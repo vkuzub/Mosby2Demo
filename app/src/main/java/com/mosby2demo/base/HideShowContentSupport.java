@@ -11,21 +11,13 @@ public interface HideShowContentSupport {
 
     void showLoading();
 
-//    void showError(@Nullable String msg);
-//
-//    void showError(@StringRes int res);
-//
-//    void showEmpty(@Nullable String msg);
-//
-//    void showEmpty(@StringRes int res);
+    void showError(String msg);
 
-    void showErrorMessage(String msg, boolean toast);
+    void showError(@StringRes int msg);
 
-    void showErrorMessage(@StringRes int msg, boolean toast);
+    void showEmpty(String msg);
 
-    void showEmptyMessage(String msg, boolean toast);
-
-    void showEmptyMessage(@StringRes int msg, boolean toast);
+    void showEmpty(@StringRes int msg);
 
     void showMessage(String msg);
 

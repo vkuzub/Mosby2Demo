@@ -19,7 +19,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Vyacheslav on 26.12.2016.
  */
 
-public class BasePresenter<V extends MvpView> extends MvpBasePresenter<V> implements RxSupport {
+public class BaseMvpPresenter<V extends MvpView> extends MvpBasePresenter<V> implements RxSupport {
 
     private CompositeSubscription compositeSubscription;
     private Client client;
@@ -57,32 +57,46 @@ public class BasePresenter<V extends MvpView> extends MvpBasePresenter<V> implem
 
     }
 
-    protected void onError(@Nullable String msg, boolean toast) {
+    protected void onError(@Nullable String msg, boolean toast, @Nullable Throwable throwable) {
+        if (throwable != null) {
+            throwable.printStackTrace();
+        }
         if (isViewAttached()) {
             if (!TextUtils.isEmpty(msg)) {
                 msg = App.getContext().getString(R.string.oops_something_went_wrong);
             }
             HideShowContentSupport view = (HideShowContentSupport) getView();
-            view.showErrorMessage(msg, toast);
+            if (toast) {
+                view.showMessage(msg);
+            } else {
+                view.showError(msg);
+            }
         }
     }
 
-    protected void onEmpty(@Nullable String msg, boolean toast) {
+    protected void onEmpty(@Nullable String msg, boolean toast, @Nullable Throwable throwable) {
+        if (throwable != null) {
+            throwable.printStackTrace();
+        }
         if (isViewAttached()) {
             if (!TextUtils.isEmpty(msg)) {
                 msg = App.getContext().getString(R.string.no_data);
             }
             HideShowContentSupport view = (HideShowContentSupport) getView();
-            view.showErrorMessage(msg, toast);
+            if (toast) {
+                view.showMessage(msg);
+            } else {
+                view.showEmpty(msg);
+            }
         }
     }
 
-    protected void onError(@StringRes int msg, boolean toast) {
-        onError(App.getContext().getString(msg), toast);
+    protected void onError(@StringRes int msg, boolean toast, @Nullable Throwable throwable) {
+        onError(App.getContext().getString(msg), toast, throwable);
     }
 
-    protected void onEmpty(@StringRes int msg, boolean toast) {
-        onEmpty(App.getContext().getString(msg), toast);
+    protected void onEmpty(@StringRes int msg, boolean toast, @Nullable Throwable throwable) {
+        onEmpty(App.getContext().getString(msg), toast, throwable);
     }
 
 }

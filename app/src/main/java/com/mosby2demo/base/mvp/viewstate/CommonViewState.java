@@ -6,12 +6,12 @@ import android.support.annotation.NonNull;
 import com.hannesdorfmann.mosby.mvp.viewstate.RestorableViewState;
 import com.mosby2demo.App;
 import com.mosby2demo.R;
-import com.mosby2demo.base.mvp.BaseMvpViewFragment;
+import com.mosby2demo.base.mvp.BaseMvpFragmentView;
 
 /**
  * Created by Vyacheslav on 12.09.2016.
  */
-public class CommonViewState implements RestorableViewState<BaseMvpViewFragment> {
+public class CommonViewState implements RestorableViewState<BaseMvpFragmentView> {
 
     private static final int STATE_SHOW_CONTENT = 0;
     private static final int STATE_SHOW_LOADING = 1;
@@ -54,7 +54,7 @@ public class CommonViewState implements RestorableViewState<BaseMvpViewFragment>
     }
 
     @Override
-    public RestorableViewState<BaseMvpViewFragment> restoreInstanceState(Bundle in) {
+    public RestorableViewState<BaseMvpFragmentView> restoreInstanceState(Bundle in) {
         state = in.getInt(STATE_SAVE);
         errorMsg = in.getString(ERROR_MSG_SAVE);
         errorMsg = in.getString(EMPTY_MSG_SAVE);
@@ -62,7 +62,7 @@ public class CommonViewState implements RestorableViewState<BaseMvpViewFragment>
     }
 
     @Override
-    public void apply(BaseMvpViewFragment view, boolean retained) {
+    public void apply(BaseMvpFragmentView view, boolean retained) {
         switch (state) {
             case STATE_SHOW_CONTENT:
                 view.showContent();
@@ -71,10 +71,10 @@ public class CommonViewState implements RestorableViewState<BaseMvpViewFragment>
                 view.showLoading();
                 break;
             case STATE_SHOW_ERROR:
-                view.showErrorMessage(errorMsg, false);
+                view.showError(errorMsg);
                 break;
             case STATE_SHOW_EMPTY:
-                view.showEmptyMessage(emptyMsg, false);
+                view.showEmpty(emptyMsg);
         }
     }
 }
