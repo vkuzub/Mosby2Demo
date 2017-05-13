@@ -14,6 +14,7 @@
         android:padding="16dp"
         android:text="@string/oops_something_went_wrong"
         android:textColor="@android:color/darker_gray"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textStyle="italic"/>
 
 </merge>

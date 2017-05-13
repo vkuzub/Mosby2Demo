@@ -100,4 +100,11 @@ public class MyTestFragment extends BaseMVPFragment<TestMVP.View, MyTestPresente
         super.onStart();
         tvStateCount.setText(String.valueOf(getPresenter().getState()));
     }
+
+    @Override
+    public boolean isRestoringViewState() {
+        boolean val = super.isRestoringViewState();
+        System.out.println(val);
+        return val;
+    }
 }

@@ -20,13 +20,10 @@ public class CommonViewState implements RestorableViewState<BaseMvpFragmentView>
 
     private int state = STATE_SHOW_CONTENT;
 
-    private String errorMsg = App.getApplication().getString(R.string.an_error_has_occurred);
-
-    private String emptyMsg = App.getApplication().getString(R.string.no_data);
+    private String msg = App.getApplication().getString(R.string.an_error_has_occurred);
 
     private static final String STATE_SAVE = "STATE";
-    private static final String ERROR_MSG_SAVE = "STATE_ERROR";
-    private static final String EMPTY_MSG_SAVE = "STATE_EMPTY";
+    private static final String MSG_TEXT_SAVE = "STATE_MESSAGE";
 
     public void showContent() {
         state = STATE_SHOW_CONTENT;
@@ -38,26 +35,24 @@ public class CommonViewState implements RestorableViewState<BaseMvpFragmentView>
 
     public void showError(String msg) {
         state = STATE_SHOW_ERROR;
-        errorMsg = msg;
+        this.msg = msg;
     }
 
     public void showEmpty(String msg) {
         state = STATE_SHOW_EMPTY;
-        emptyMsg = msg;
+        this.msg = msg;
     }
 
     @Override
     public void saveInstanceState(@NonNull Bundle out) {
         out.putInt(STATE_SAVE, state);
-        out.putString(ERROR_MSG_SAVE, errorMsg);
-        out.putString(EMPTY_MSG_SAVE, emptyMsg);
+        out.putString(MSG_TEXT_SAVE, msg);
     }
 
     @Override
     public RestorableViewState<BaseMvpFragmentView> restoreInstanceState(Bundle in) {
         state = in.getInt(STATE_SAVE);
-        errorMsg = in.getString(ERROR_MSG_SAVE);
-        errorMsg = in.getString(EMPTY_MSG_SAVE);
+        msg = in.getString(MSG_TEXT_SAVE);
         return this;
     }
 
@@ -71,10 +66,10 @@ public class CommonViewState implements RestorableViewState<BaseMvpFragmentView>
                 view.showLoading();
                 break;
             case STATE_SHOW_ERROR:
-                view.showError(errorMsg);
+                view.showError(msg);
                 break;
             case STATE_SHOW_EMPTY:
-                view.showEmpty(emptyMsg);
+                view.showEmpty(msg);
         }
     }
 }
