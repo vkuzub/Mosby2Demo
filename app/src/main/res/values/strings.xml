@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mosby2Demo</string>
+    <string name="oops_something_went_wrong">Oops! Something went wrong...</string>
+    <string name="no_data">No data</string>
+    <string name="an_error_has_occurred_click_here_to_retry">An error has occurred! Click here to retry</string>
+    <string name="an_error_has_occurred">Oops! Something went wrong…</string>
+</resources>
