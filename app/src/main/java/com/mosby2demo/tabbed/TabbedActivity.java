@@ -31,7 +31,7 @@ public class TabbedActivity extends AppCompatActivity {
 
 //        viewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager()));
         viewPager.setAdapter(new MyFragmentStatePagerAdapter(getSupportFragmentManager()));
-
+        viewPager.setOffscreenPageLimit(3);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -49,13 +49,14 @@ public class TabbedActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             return "Tab " + position;
         }
+
     }
 
     class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
@@ -71,12 +72,13 @@ public class TabbedActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 5;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             return "Tab " + position;
         }
+
     }
 }
